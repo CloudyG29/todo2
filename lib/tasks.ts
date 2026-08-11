@@ -89,7 +89,11 @@ export function archiveTask(db: Database.Database, id: number): Task {
 export function isOverdue(task: Task, now: Date = new Date()): boolean {
   if (task.status === 'complete') return false;
   if (task.archived_at) return false;
-  return new Date(task.due_date) < now;
+
+  const dueEndOfDay = new Date(task.due_date);
+  dueEndOfDay.setHours(23, 59, 59, 999);
+
+  return dueEndOfDay < now;
 }
 
 function withOverdue(task: Task): TaskWithOverdue {

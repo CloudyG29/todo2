@@ -1,4 +1,3 @@
-
 import { makeTestDb } from './setup';
 import { createTask, updateTask, archiveTask, isOverdue, listTasks } from '../lib/tasks';
 
@@ -26,6 +25,16 @@ describe('overdue derivation', () => {
     const task = createTask(db, {
       title: 'Future thing',
       due_date: '2099-01-01T00:00:00Z',
+      topic: 'Uni',
+    });
+    expect(isOverdue(task)).toBe(false);
+  });
+
+  it('does not flag a task due today, before the day has ended', () => {
+    const today = new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'
+    const task = createTask(db, {
+      title: 'Due today',
+      due_date: today,
       topic: 'Uni',
     });
     expect(isOverdue(task)).toBe(false);
