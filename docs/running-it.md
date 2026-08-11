@@ -17,8 +17,8 @@
 ## Install
 
 ```bash
-git clone <your-repo-url>
-cd todo-app
+git clone https://github.com/CloudyG29/todo2.git
+cd todo2
 npm install
 ```
 
